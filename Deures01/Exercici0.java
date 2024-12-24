@@ -177,7 +177,14 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarTipusOperacio"
      */
     public static boolean validarTipusOperacio(String tipus) {
-        // TODO
+        if (tipus == null){
+            return false;
+        }
+        if (tipus.equals("Declaració d'impostos") || tipus.equals("Gestió laboral") || tipus.equals("Assessoria fiscal") ||
+        tipus.equals("Constitució de societat") || tipus.equals("Modificació d'escriptures") || tipus.equals("Testament") ||
+        tipus.equals("Gestió d'herències") || tipus.equals("Acta notarial") || tipus.equals("Contracte de compravenda") || tipus.equals("Contracte de lloguer")){
+            return true;
+        }
         return false;
     }
 

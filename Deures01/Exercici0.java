@@ -211,8 +211,21 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarClients"
      */
     public static boolean validarClients(ArrayList<String> clientsLlista, ArrayList<String> clientsGlobals) {
-        // TODO
-        return false;
+        if (clientsLlista == null || clientsGlobals == null){
+            return false;
+        }
+        if (clientsLlista.isEmpty()){
+            return true;
+        }
+        for (int contador = 0; contador < clientsLlista.size(); contador++){
+            if (clientsLlista.indexOf(clientsLlista.get(contador)) != clientsLlista.lastIndexOf(clientsLlista.get(contador))){
+                return false;
+            }
+            if (!clientsGlobals.contains(clientsLlista.get(contador))){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

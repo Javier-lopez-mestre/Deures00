@@ -363,8 +363,15 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testAfegirClient"
      */
     public static String afegirClient(String nom, int edat, ArrayList<String> factors, double descompte) {
-        // TODO
-        return "";
+        String newPwd = generaClauClient();
+
+        HashMap<String, Object> clientsParametres = new HashMap();
+        clientsParametres.put("nom", nom);
+        clientsParametres.put("edat", edat);
+        clientsParametres.put("factors", factors);
+        clientsParametres.put("descompte", descompte);
+        clients.put(newPwd, clientsParametres);
+        return newPwd;
     }
 
     /**

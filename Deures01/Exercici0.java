@@ -2,6 +2,7 @@ package com.exercicis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -334,8 +335,13 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testGeneraClauClient"
      */
     public static String generaClauClient() {
-        // TODO
-        return "";
+        Random random = new Random();
+        String clau;
+        do { 
+            int nombreAleatori = 100 + random.nextInt(900);
+            clau = "client_" + nombreAleatori;
+        } while (clients.containsKey(clau));
+        return clau;
     }
 
     /**

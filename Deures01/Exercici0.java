@@ -426,8 +426,12 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testEsborrarClient"
      */
     public static String esborrarClient(String clauClient) {
-        // TODO
-        return "";
+        if (clients.containsKey(clauClient)){
+            clients.remove(clauClient);
+            return "OK";
+        }else{
+            return "Client amb clau " + clauClient + " no existeix.";
+        }
     }
 
     /**

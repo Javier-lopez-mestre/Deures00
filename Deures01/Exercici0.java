@@ -395,8 +395,19 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testModificarClient"
      */
     public static String modificarClient(String clauClient, String camp, Object nouValor) {
-        // TODO
-        return "";
+        if (clients.containsKey(clauClient)){
+            HashMap<String, Object> client = (HashMap<String, Object>) clients.get(clauClient);
+
+            if (client.containsKey(camp)){
+                client.put(camp, nouValor);
+                return "OK";
+
+            }else{
+                return "El camp " + camp + " no existeix.";
+            }
+        }else{
+            return "Client '" + clauClient + "' no existeix.";
+        }
     }
 
     /**

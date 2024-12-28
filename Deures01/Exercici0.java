@@ -535,8 +535,19 @@ public class Exercici0 {
             String observacions,
             double preu) {
 
-        // TODO
-        return "";
+        String clauOperacio = generaClauOperacio();
+
+        HashMap<String, Object> novaOperacio = new HashMap<>();
+        novaOperacio.put("id", clauOperacio);
+        novaOperacio.put("tipus", tipus);
+        novaOperacio.put("clients", clientsImplicats);
+        novaOperacio.put("data", data);
+        novaOperacio.put("observacions", observacions);
+        novaOperacio.put("preu", preu);
+        
+        operacions.add(novaOperacio);
+
+        return clauOperacio;
     }
 
     /**

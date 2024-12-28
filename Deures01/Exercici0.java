@@ -562,8 +562,16 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testModificarOperacio"
      */
     public static String modificarOperacio(String idOperacio, String camp, Object nouValor) {
-        // TODO
-        return "";
+        for (HashMap<String, Object> operacio : operacions){
+            if (operacio.get("id").equals(idOperacio)){
+                if (operacio.containsKey(camp)){
+                    operacio.put(camp, nouValor);
+                    return "OK";
+                }
+                return "El camp " + camp + " no existeix en l'operació.";
+            }
+        }
+        return "Operació amb id " + idOperacio + " no existeix.";
     }
 
     /**

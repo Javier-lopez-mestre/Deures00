@@ -488,8 +488,23 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testGeneraClauOperacio"
      */
     public static String generaClauOperacio() {
-        // TODO
-        return "";
+        Random random = new Random();
+        String clau;
+        boolean comprovar;
+
+        do {
+            int numAleatorio = 100 + random.nextInt(900);
+            clau = "operacio_" + numAleatorio;
+            comprovar = false;
+            for (HashMap<String, Object> operacio : operacions){
+                if (clau.equals(operacio.get("id"))){
+                    comprovar = true;
+                    break;
+                }
+            }
+        }
+        while (comprovar);
+        return clau;
     }
 
     /**

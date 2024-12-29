@@ -678,8 +678,38 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testAlineaColumnes"
      */
     public static String alineaColumnes(ArrayList<Object[]> columnes) {
-        // TODO
-        return "";
+        StringBuilder resultat = new StringBuilder();
+        
+        for (Object [] output : columnes){
+            String text = (String) output[0];
+            String alineacio = (String) output[1];
+            int amplada = (Integer) output[2];
+            
+            if (text.length() > amplada){
+                text = text.substring(0, amplada);
+            }
+
+            int espais = amplada - text.length();
+
+            switch (alineacio) {
+                case "right":
+                    resultat.append(" ".repeat(espais));
+                    resultat.append(text);
+                    break;
+                case "left":
+                    resultat.append(text);
+                    resultat.append(" ".repeat(espais));
+                    break;
+                case "center":
+                    int espaisEsquerra = espais / 2;
+                    int espaisDreta = espais - espaisEsquerra;
+                    resultat.append(" ".repeat(espaisEsquerra));
+                    resultat.append(text);
+                    resultat.append(" ".repeat(espaisDreta));
+                    break;
+            }
+        }
+        return resultat.toString();
     }
 
     /**

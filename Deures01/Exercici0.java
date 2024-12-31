@@ -2,6 +2,7 @@ package com.exercicis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -763,8 +764,81 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testTaulaOperacionsClient2"
      */
     public static ArrayList<String> taulaOperacionsClient(String clauClient, String ordre) {
-        // TODO
-        return null;
+        Locale defaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.US);
+
+            HashMap<String, Object> client = clients.get(clauClient);
+            if (client == null) {
+                ArrayList<String> error = new ArrayList<>();
+                error.add("Client amb clau " + clauClient + " no existeix.");
+                return error;
+            }
+    
+            ArrayList<HashMap<String, Object>> operacionsClient = llistarOperacionsClient(clauClient);
+            operacionsClient.sort((op1, op2) -> {
+                Object val1 = op1.get(ordre);
+                Object val2 = op2.get(ordre);
+                return val1.toString().compareTo(val2.toString());
+            });
+    
+            ArrayList<String> linies = new ArrayList<>();
+            
+            String nomEdat = client.get("nom") + ", " + client.get("edat");
+            String factors = "[" + String.join(", ", (ArrayList<String>) client.get("factors")) + "]";
+            
+            ArrayList<Object[]> columnesCapcalera = new ArrayList<>();
+            columnesCapcalera.add(new Object[]{nomEdat, "left", 25});
+            columnesCapcalera.add(new Object[]{factors, "right", 30});
+            linies.add(alineaColumnes(columnesCapcalera));
+            
+            linies.add("-".repeat(55));
+            
+            ArrayList<Object[]> columnesTitols = new ArrayList<>();
+            columnesTitols.add(new Object[]{"Tipus", "left", 30});
+            columnesTitols.add(new Object[]{"Data", "left", 10});
+            columnesTitols.add(new Object[]{"Preu", "right", 15});
+            linies.add(alineaColumnes(columnesTitols));
+            
+            double sumaPreus = 0.0;
+            for (HashMap<String, Object> operacio : operacionsClient) {
+                ArrayList<Object[]> columnesOperacio = new ArrayList<>();
+                columnesOperacio.add(new Object[]{operacio.get("tipus").toString(), "left", 30});
+                columnesOperacio.add(new Object[]{operacio.get("data").toString(), "left", 10});
+                
+                double preu = ((Number) operacio.get("preu")).doubleValue();
+                columnesOperacio.add(new Object[]{String.format("%.2f", preu), "right", 15});
+                
+                linies.add(alineaColumnes(columnesOperacio));
+                sumaPreus += preu;
+            }
+            
+            linies.add("-".repeat(55));
+            
+            int descomptePercentatge = 10;
+            double percentatge = (100 - descomptePercentatge);
+            double preuDescomptat = sumaPreus * (percentatge / 100.0); 
+            double impostos = preuDescomptat * 0.21;
+            double total = preuDescomptat + impostos;
+    
+            ArrayList<Object[]> columnesTotals = new ArrayList<>();
+            columnesTotals.add(new Object[]{String.format("Suma: %.2f", sumaPreus), "right", 55});
+            linies.add(alineaColumnes(columnesTotals));
+    
+            ArrayList<Object[]> columnesDescompte = new ArrayList<>();
+            columnesDescompte.add(new Object[]{String.format("Descompte: %d%%", descomptePercentatge), "left", 30});
+            columnesDescompte.add(new Object[]{String.format("Preu: %.2f", preuDescomptat), "right", 25});
+            linies.add(alineaColumnes(columnesDescompte));
+    
+            ArrayList<Object[]> columnesImpostos = new ArrayList<>();
+            columnesImpostos.add(new Object[]{String.format("Impostos:  21%% (%.2f)", impostos), "left", 30});
+            columnesImpostos.add(new Object[]{String.format("Total: %.2f", total), "right", 25});
+            linies.add(alineaColumnes(columnesImpostos));
+            
+            return linies;
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
     }
 
     /**

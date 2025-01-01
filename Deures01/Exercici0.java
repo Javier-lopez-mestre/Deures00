@@ -935,8 +935,31 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testObtenirOpcio"
      */
     public static String obtenirOpcio(Scanner scanner) {
-        // TODO
-        return "";
+        ArrayList<String> menu = getCadenesMenu();
+        while(true){
+            System.out.print("Selecciona una opció (número o paraula clau): ");
+            String opcio = scanner.nextLine();
+
+            try {
+                int num = Integer.parseInt(opcio);
+                if (num == 0){
+                    return "Sortir";
+                } else if (num > 0 && num < menu.size() - 1){
+                    return menu.get(num).substring(3).trim();
+                }
+            } catch (NumberFormatException e) {
+            }
+            String opcioFormat = opcio.toLowerCase().trim().replace("ó", "o");
+            for (int contador = 0; contador < menu.size(); contador++){
+                String paraulaMenu = menu.get(contador).substring(3).trim();
+                String paraulaMenuFormat = paraulaMenu.toLowerCase().replace("ó", "o");
+
+                if (paraulaMenuFormat.equals(opcioFormat)){
+                    return paraulaMenu;
+                }
+            }
+            System.out.println("Opció no vàlida. Torna a intentar-ho.");
+        }
     }
 
     /**

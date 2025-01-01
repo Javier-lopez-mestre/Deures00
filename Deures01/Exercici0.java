@@ -998,8 +998,15 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testLlegirEdat"
      */
     public static int llegirEdat(Scanner scanner) {
-        // TODO
-        return 0;
+        System.out.print("Introdueix l'edat del client (18-100): ");
+        String edatLlegida = scanner.nextLine().trim();
+
+        while (!isAllDigits(edatLlegida) || !validarEdat(Integer.parseInt(edatLlegida))){
+            System.out.println("Edat no vàlida. Introdueix un número entre 18 i 100.");
+            System.out.print("Introdueix l'edat del client (18-100): ");
+            edatLlegida = scanner.nextLine().trim();
+        }
+        return Integer.parseInt(edatLlegida);
     }
     
     /**

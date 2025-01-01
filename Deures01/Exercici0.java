@@ -1111,8 +1111,23 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testAfegirClientMenu"
      */
     public static ArrayList<String> afegirClientMenu(Scanner scanner) {
-        // TODO
-        return null;
+        ArrayList<String> resultat = new ArrayList<>();
+        resultat.add("=== Afegir Client ===");
+
+        String nom = llegirNom(scanner);
+        int edat = llegirEdat(scanner);
+        double descompte = llegirDescompte(scanner);
+
+        ArrayList<String> factors = llegirFactors(scanner);
+
+        if (!validarFactors(factors.toArray(new String[0]))){
+            resultat.add("Els factors no són vàlids.");
+            return resultat;
+        }
+
+        String nouClient = afegirClient(nom, edat, factors, descompte);
+        resultat.add("S'ha afegit el client amb clau " + nouClient + ".");
+        return resultat;
     }
     
     /**

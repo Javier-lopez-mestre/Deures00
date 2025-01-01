@@ -1072,8 +1072,15 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testLlegirDescompte"
      */
     public static double llegirDescompte(Scanner scanner) {
-        // TODO
-        return 0.0;
+        System.out.print("Introdueix el descompte (0-20): ");
+        String descompteInput = scanner.nextLine().trim();
+        
+        while (!descompteInput.matches("\\d+(\\.\\d+)?") || !validarDescompte(Double.parseDouble(descompteInput))){
+                System.out.println("Descompte no vàlid. Ha de ser un número entre 0 i 20.");
+                System.out.print("Introdueix el descompte (0-20): ");
+                descompteInput = scanner.nextLine().trim();
+        }
+        return Double.parseDouble(descompteInput);
     }
 
     /**

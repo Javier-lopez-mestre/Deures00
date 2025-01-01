@@ -1026,8 +1026,36 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testLlegirFactors"
      */
     public static ArrayList<String> llegirFactors(Scanner scanner) {
-        // TODO
-        return null;
+        ArrayList<String> factors = new ArrayList<>();
+        
+        System.out.print("Introdueix el primer factor ('autònom' o 'empresa'): ");
+        String factor = scanner.nextLine().trim();
+        while (!factor.equals("autònom") && !factor.equals("empresa")) {
+            System.out.println("Factor no vàlid. Ha de ser 'autònom' o 'empresa'.");
+            System.out.print("Introdueix el primer factor ('autònom' o 'empresa'): ");
+            factor = scanner.nextLine().trim();
+        }
+        factors.add(factor);
+        
+        String mostrarFactor2 = factor.equals("autònom") ? "Introdueix el segon factor ('risc alt' o 'risc mitjà'): "
+            : "Introdueix el segon factor ('risc alt', 'risc baix' o 'risc mitjà'): ";
+        
+        System.out.print(mostrarFactor2);
+        String factor2 = scanner.nextLine().trim();
+        while (true) {
+            if (factor.equals("autònom")) {
+                if (factor2.equals("risc alt") || factor2.equals("risc mitjà")) break;
+                System.out.println("Factor no vàlid. Per a autònoms només pot ser 'risc alt' o 'risc mitjà'.");
+            } else {
+                if (factor2.equals("risc alt") || factor2.equals("risc baix") || factor2.equals("risc mitjà")) break;
+                System.out.println("Factor no vàlid. Ha de ser 'risc alt', 'risc baix' o 'risc mitjà'.");
+            }
+            System.out.print(mostrarFactor2);
+            factor2 = scanner.nextLine().trim();
+        }
+        factors.add(factor2);
+        
+        return factors;
     }
     
     /**

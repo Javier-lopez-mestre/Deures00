@@ -1170,8 +1170,52 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testModificarClientMenu"
      */
     public static ArrayList<String> modificarClientMenu(Scanner scanner) {
-        // TODO
-        return null;
+        ArrayList<String> resultat = new ArrayList<>();
+        resultat.add("=== Modificar Client ===");
+
+        System.out.print("Introdueix la clau del client a modificar (per exemple, 'client_100'): ");
+        String clauClient = scanner.nextLine().trim();
+
+        if (!clients.containsKey(clauClient)){
+            resultat.add("Client amb clau " + clauClient + " no existeix.");
+            return resultat;
+        }
+
+        resultat.add("Camps disponibles per modificar: nom, edat, factors, descompte");
+        System.out.print("Introdueix el camp que vols modificar: ");
+        String campModificar = scanner.nextLine().trim();
+        if (!Arrays.asList("nom", "edat", "factors", "descompte").contains(campModificar)){
+            resultat.add("El camp " + campModificar + " no és vàlid.");
+            return resultat;
+        }
+
+        Object nouValor = switch (campModificar) {
+            case "nom" -> llegirNom(scanner);
+            case "edat" -> llegirEdat(scanner);
+            case "factors" -> {
+                ArrayList<String> factors = llegirFactors(scanner);
+                if (!validarFactors(factors.toArray(new String[0]))) {
+                    resultat.add("Els factors no són vàlids.");
+                    yield null;
+                }
+                yield factors;
+            }
+            case "descompte" -> llegirDescompte(scanner);
+            default -> null;
+        };
+
+        if (nouValor == null){
+            return resultat;
+        }
+            
+        String resultatModificarClient = modificarClient(clauClient, campModificar, nouValor);
+        if (!resultatModificarClient.equals("OK")){
+            resultat.add(resultatModificarClient);
+        }else{
+            resultat.add("S'ha modificat el client " + clauClient + ".");
+        }
+        
+        return resultat;
     }
 
     /**

@@ -1238,8 +1238,20 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testEsborrarClientMenu"
      */
     public static ArrayList<String> esborrarClientMenu(Scanner scanner) {
-        // TODO
-        return null;
+        ArrayList<String> resultat = new ArrayList<>();
+        resultat.add("=== Esborrar Client ===");
+
+        System.out.print("Introdueix la clau del client a esborrar (per exemple, 'client_100'): ");
+        String clauClient = scanner.nextLine();
+
+        if (clients.containsKey(clauClient)){
+            clients.remove(clauClient);
+            resultat.add("S'ha esborrat el client " + clauClient + ".");
+        }else{
+            resultat.add("Client amb clau " + clauClient + " no existeix.");
+        }
+
+        return resultat;
     }
 
     /**

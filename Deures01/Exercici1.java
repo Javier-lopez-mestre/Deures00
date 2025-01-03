@@ -107,7 +107,19 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testSpawnDoNotOverwriteExisting"
      */
     public static void spawnTile() {
-        // TODO
+        int fila;
+        int columna;
+        do { 
+            fila = random.nextInt(SIZE);
+            columna = random.nextInt(SIZE);
+        } while (board[fila][columna] != 0);
+
+        int probabilidad = random.nextInt(10);
+        if (probabilidad == 0){
+            board[fila][columna] = 4;
+        }else{
+            board[fila][columna] = 2;
+        }
     }
 
     /**

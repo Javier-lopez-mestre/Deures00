@@ -346,7 +346,34 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testMoveDownFullColumnWithoutMerge"
      */
     public static void moveDown() {
-        // TODO
+        for (int columna = 0; columna < SIZE; columna++){
+            int[] newCol = new int[SIZE];
+            int newIndex = SIZE - 1;
+
+            for (int row = SIZE - 1; row > -1; row--){
+                if (board[row][columna] != 0){
+                    newCol[newIndex] = board[row][columna];
+                    newIndex--;
+                }
+            }
+            for (int i = SIZE -1; i > 0; i--) {
+                if (newCol[i] != 0 && newCol[i] == newCol[i - 1]) {
+                    newCol[i] = newCol[i] + newCol[i];
+                    newCol[i - 1] = 0;
+                }
+            }
+            int[] finalCol = new int[SIZE];
+            int finalIndex = SIZE - 1;
+            for (int i = SIZE - 1; i > -1; i--) {
+                if (newCol[i] != 0) {
+                    finalCol[finalIndex] = newCol[i];
+                    finalIndex--;
+                }
+            }
+            for (int row = 0; row < SIZE; row++) {
+                board[row][columna] = finalCol[row];
+            }
+        }
     }
 
     /**

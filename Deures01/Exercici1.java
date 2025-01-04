@@ -157,7 +157,32 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testMoveLeftFullRowWithoutMerge"
      */
     public static void moveLeft() {
-        // TODO
+        for (int row = 0; row < SIZE; row++){
+            int[] newRow = new int[SIZE];
+            int newIndex = 0;
+
+            for (int columna = 0; columna < SIZE; columna++){
+                if (board[row][columna] != 0){
+                    newRow[newIndex] = board[row][columna];
+                    newIndex++;
+                }
+            }
+            for (int i = 0; i < SIZE - 1; i++) {
+                if (newRow[i] != 0 && newRow[i] == newRow[i + 1]) {
+                    newRow[i] = newRow[i] + newRow[i];
+                    newRow[i + 1] = 0;
+                }
+            }
+            int[] finalRow = new int[SIZE];
+            int finalIndex = 0;
+            for (int i = 0; i < SIZE; i++) {
+                if (newRow[i] != 0) {
+                    finalRow[finalIndex] = newRow[i];
+                    finalIndex++;
+                }
+            }
+            board[row] = finalRow;
+        }
     }
 
     /**

@@ -220,7 +220,32 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testMoveRightFullColumnWithoutMerge"
      */
     public static void moveRight() {
-        // TODO
+        for (int row = 0; row < SIZE; row++){
+            int[] newRow = new int[SIZE];
+            int newIndex = SIZE - 1;
+
+            for (int columna = SIZE - 1; columna > -1; columna--){
+                if (board[row][columna] != 0){
+                    newRow[newIndex] = board[row][columna];
+                    newIndex--;
+                }
+            }
+            for (int i = SIZE - 1; i > -1; i--) {
+                if (newRow[i] != 0 && newRow[i] == newRow[i - 1]) {
+                    newRow[i] = newRow[i] + newRow[i];
+                    newRow[i - 1] = 0;
+                }
+            }
+            int[] finalRow = new int[SIZE];
+            int finalIndex = SIZE - 1;
+            for (int i = SIZE - 1; i > -1; i--) {
+                if (newRow[i] != 0) {
+                    finalRow[finalIndex] = newRow[i];
+                    finalIndex--;
+                }
+            }
+            board[row] = finalRow;
+        }
     }
 
     /**

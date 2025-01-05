@@ -446,7 +446,63 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testPlayMixedCaseCommands"
      */
     public static void play(Scanner scanner) {
-        // TODO
+        String info = "";
+        spawnTile();
+
+        while (true) { 
+            spawnTile();
+            clearScreen();
+            printBoard();
+
+            if (info.compareTo("") != -1) {
+                System.out.println(info);
+            }
+
+            String resultadoJuego = isGameFinished();
+            if (resultadoJuego.equals("win")) {
+                System.out.println("You win, congrats!");
+                break;
+            }
+            if (resultadoJuego.equals("lost")) {
+                System.out.println("Game Over, you are a loser!");
+                break;
+            }
+
+            System.out.println("Enter move (left, up, right, down, exit): ");
+            String move = scanner.nextLine().toLowerCase();
+
+            switch (move) {
+                case "l":
+                    moveLeft();
+                    break;
+                case "left":
+                    moveLeft();
+                    break;
+                case "r":
+                    moveRight();
+                    break;
+                case "right":
+                    moveRight();
+                    break;
+                case "u":
+                    moveUp();
+                    break;
+                case "up":
+                    moveUp();
+                    break;
+                case "d":
+                    moveDown();
+                    break;
+                case "down":
+                    moveDown();
+                    break;
+                case "exit":
+                    System.out.println("Exit game ...");
+                    return;
+                default:
+                    info = "Invalid move!";
+            }
+        }
     }
 
     /**

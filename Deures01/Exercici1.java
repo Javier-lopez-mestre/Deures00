@@ -394,8 +394,28 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testGameWinWithMultipleConditions"
      */
     public static String isGameFinished() {
-        // TODO
-        return "continue";
+        for (int[] row : board){
+            for (int num : row){
+                if (num == 128){
+                    return "win";
+                }
+            }
+        }
+        for (int row = 0; row < SIZE; row++){
+            for (int columna = 0; columna < SIZE; columna++){
+                if (board[row][columna] == 0){
+                    return "continue";
+                }
+                if (row < SIZE -1 && board[row][columna] == board[row + 1][columna]){
+                    return "continue";
+                }
+                if (columna < SIZE -1 && board[row][columna] == board[row][columna + 1]){
+                    return "continue";
+                }
+            }
+        }
+
+        return "lost";
     }
 
     /**
